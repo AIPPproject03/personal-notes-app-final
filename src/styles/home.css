@@ -1,0 +1,77 @@
+.home-container {
+  padding: 32px;
+  background-color: var(--on-background-grey);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.home-container h1 {
+  font-size: 36px;
+  margin-bottom: 16px;
+  color: var(--background);
+}
+
+.home-container p {
+  font-size: 18px;
+  margin-bottom: 24px;
+  color: var(--background);
+}
+
+.home-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.home-form label {
+  font-size: 20px;
+  margin-bottom: 8px;
+  color: var(--background);
+}
+
+.home-form input,
+.home-form textarea {
+  width: 100%;
+  padding: 12px;
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  border: 2px solid var(--background);
+  border-radius: 4px;
+  background-color: var(--on-background-grey);
+  color: var(--background);
+  transition: border-color 0.3s;
+}
+
+.home-form input:focus,
+.home-form textarea:focus {
+  border-color: var(--on-surface);
+  box-shadow: 0 0 4px var(--on-surface);
+  outline: none;
+}
+
+.home-form textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.home-form button {
+  padding: 12px 24px;
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  background-color: var(--background);
+  color: var(--on-surface);
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.home-form button:hover {
+  background-color: var(--on-surface);
+  color: var(--background);
+  transform: translateY(-2px);
+}
+
+.home-form button:active {
+  transform: scale(0.95);
+}
