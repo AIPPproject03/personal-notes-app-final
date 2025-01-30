@@ -1,5 +1,11 @@
 import React from "react";
-import { Link, useLocation, useSearchParams } from "react-router-dom";
+import {
+  Link,
+  useLocation,
+  useSearchParams,
+  useNavigate,
+} from "react-router-dom";
+import { FiLogOut } from "react-icons/fi"; // Import ikon logout
 
 import "../styles/navbar.css";
 
@@ -7,10 +13,16 @@ function Navigation() {
   const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
   const searchKeyword = searchParams.get("search") || "";
+  const navigate = useNavigate();
 
   const handleSearchChange = (event) => {
     const keyword = event.target.value;
     setSearchParams(keyword ? { search: keyword } : {});
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken"); // Hapus token
+    navigate("/login"); // Redirect ke halaman login
   };
 
   const isSearchVisible =
@@ -43,6 +55,9 @@ function Navigation() {
             />
           </div>
         )}
+        <button className="logout-icon" onClick={handleLogout} title="Logout">
+          <FiLogOut size={24} color="#e74c3c" />
+        </button>
       </nav>
     </div>
   );
