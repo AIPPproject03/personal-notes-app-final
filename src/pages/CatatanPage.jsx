@@ -1,25 +1,41 @@
-import React from "react";
-import { getActiveNotes, deleteNote, archiveNote } from "../utils/local-data";
+import React, { useEffect, useState } from "react";
 import CatatanCard from "../components/CatatanCard";
 import { useSearchParams } from "react-router-dom";
+import { getActiveNotes, deleteNote, archiveNote } from "../api/app-data";
 
 function CatatanPage() {
-  const [notes, setNotes] = React.useState(getActiveNotes());
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [notes, setNotes] = useState([]);
+  const [searchParams] = useSearchParams();
   const searchKeyword = searchParams.get("search") || "";
+
+  useEffect(() => {
+    async function fetchNotes() {
+      const { error, data } = await getActiveNotes();
+      if (!error) {
+        setNotes(data);
+      }
+    }
+    fetchNotes();
+  }, []);
 
   const filteredNotes = notes.filter((note) =>
     note.title.toLowerCase().includes(searchKeyword.toLowerCase())
   );
 
-  const handleDelete = (id) => {
-    deleteNote(id);
-    setNotes(getActiveNotes());
+  const handleDelete = async (id) => {
+    await deleteNote(id);
+    const { error, data } = await getActiveNotes();
+    if (!error) {
+      setNotes(data);
+    }
   };
 
-  const handleArchive = (id) => {
-    archiveNote(id);
-    setNotes(getActiveNotes());
+  const handleArchive = async (id) => {
+    await archiveNote(id);
+    const { error, data } = await getActiveNotes();
+    if (!error) {
+      setNotes(data);
+    }
   };
 
   return (

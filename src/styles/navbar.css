@@ -1,14 +1,19 @@
 .navbar-container {
-  background-color: var(--on-background-grey);
-  padding: 1rem 2rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-  border-radius: 60px;
+  margin-top: 15px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  max-width: fit-content;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  border-radius: 60px;
+  background-color: var(--on-background-grey);
+  padding: 1rem 2rem;
 }
 
 .logo h1 {
@@ -73,5 +78,5 @@
 }
 
 .logout-icon:hover {
-  background: rgba(231, 76, 60, 0.1);
+  background: rgba(252, 251, 251, 0.4);
 }

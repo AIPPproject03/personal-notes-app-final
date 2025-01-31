@@ -32,6 +32,7 @@ function RegisterPage() {
   return (
     <div className="register-container">
       <div className="register-box">
+        <h1>Welcome to Notes App</h1>
         <h2>Registrasi</h2>
         {error && <p className="error-message">{error}</p>}
         <form onSubmit={handleSubmit}>

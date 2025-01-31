@@ -1,35 +1,45 @@
-import React from "react";
-import {
-  getArchivedNotes,
-  unarchiveNote,
-  deleteNote,
-} from "../utils/local-data";
+import React, { useEffect, useState } from "react";
 import CatatanCard from "../components/CatatanCard";
 import { useSearchParams } from "react-router-dom";
+import { getArchivedNotes, deleteNote, unarchiveNote } from "../api/app-data";
 
 function ArchivePage() {
-  const [notes, setNotes] = React.useState(getArchivedNotes());
+  const [notes, setNotes] = useState([]);
   const [searchParams] = useSearchParams();
   const searchKeyword = searchParams.get("search") || "";
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchNotes = async () => {
+      setLoading(true);
+      const { data } = await getArchivedNotes();
+      setNotes(data);
+      setLoading(false);
+    };
+
+    fetchNotes();
+  }, []);
 
   const filteredNotes = notes.filter((note) =>
     note.title.toLowerCase().includes(searchKeyword.toLowerCase())
   );
 
-  const handleDelete = (id) => {
-    deleteNote(id);
-    setNotes(getArchivedNotes());
+  const handleDelete = async (id) => {
+    await deleteNote(id);
+    setNotes(notes.filter((note) => note.id !== id));
   };
 
-  const handleUnarchive = (id) => {
-    unarchiveNote(id);
-    setNotes(getArchivedNotes());
+  const handleUnarchive = async (id) => {
+    await unarchiveNote(id);
+    setNotes(notes.filter((note) => note.id !== id));
   };
 
   return (
     <section>
       <h2>Catatan Arsip</h2>
-      {filteredNotes.length > 0 ? (
+      {loading ? (
+        <p>Memuat catatan...</p>
+      ) : filteredNotes.length > 0 ? (
         filteredNotes.map((note) => (
           <CatatanCard
             key={note.id}

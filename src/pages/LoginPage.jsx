@@ -15,7 +15,7 @@ function LoginPage() {
     e.preventDefault();
     const { error, data } = await login(form);
     if (!error) {
-      localStorage.setItem("accessToken", data.token);
+      localStorage.setItem("accessToken", data.accessToken);
       setUser(data);
       navigate("/");
     } else {
@@ -26,6 +26,7 @@ function LoginPage() {
   return (
     <div className="login-container">
       <div className="login-box">
+        <h1>Welcome to Notes App</h1>
         <h2>Masuk ke Akun</h2>
         {error && <p className="error-message">{error}</p>}
         <form onSubmit={handleSubmit}>

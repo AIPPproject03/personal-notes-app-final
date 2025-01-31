@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { addNote } from "../utils/local-data";
-
+import { addNote } from "../api/app-data";
 import "../styles/home.css";
 
 function Home() {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
@@ -15,16 +15,25 @@ function Home() {
     setBody(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    if (title.trim() && body.trim()) {
-      addNote({ title, body });
+
+    if (!title.trim() || !body.trim()) {
+      alert("Judul dan isi catatan tidak boleh kosong!");
+      return;
+    }
+
+    setLoading(true);
+    const { error } = await addNote({ title, body });
+
+    if (!error) {
+      alert("Catatan berhasil ditambahkan!");
       setTitle("");
       setBody("");
-      alert("Catatan berhasil ditambahkan!");
     } else {
-      alert("Judul dan isi catatan tidak boleh kosong!");
+      alert("Gagal menambahkan catatan. Coba lagi!");
     }
+    setLoading(false);
   };
 
   return (
@@ -40,6 +49,7 @@ function Home() {
             value={title}
             onChange={handleTitleChange}
             placeholder="Masukkan judul catatan"
+            disabled={loading}
           />
         </div>
         <div>
@@ -49,9 +59,12 @@ function Home() {
             value={body}
             onChange={handleBodyChange}
             placeholder="Masukkan isi catatan"
+            disabled={loading}
           />
         </div>
-        <button type="submit">Tambah Catatan</button>
+        <button type="submit" disabled={loading}>
+          {loading ? "Menambahkan..." : "Tambah Catatan"}
+        </button>
       </form>
     </div>
   );

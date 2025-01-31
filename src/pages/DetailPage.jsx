@@ -1,11 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { getNote } from "../utils/local-data";
+import { getNote } from "../api/app-data";
 import "../styles/detail.css";
 
 function DetailPage() {
   const { id } = useParams();
-  const note = getNote(id);
+  const [note, setNote] = useState(null);
+
+  useEffect(() => {
+    async function fetchNote() {
+      const { error, data } = await getNote(id);
+      if (!error) {
+        setNote(data);
+      }
+    }
+    fetchNote();
+  }, [id]);
 
   if (!note) {
     return <p>Catatan tidak ditemukan.</p>;
