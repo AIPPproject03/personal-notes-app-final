@@ -1,7 +1,8 @@
 import React from "react";
 import { Link, useLocation, useSearchParams } from "react-router-dom";
-import { FiLogOut } from "react-icons/fi";
+import { FiLogOut, FiSun, FiMoon } from "react-icons/fi";
 import { useAuth } from "../context/AuthContext";
+import { useTheme } from "../context/ThemeContext";
 
 import "../styles/navbar.css";
 
@@ -10,14 +11,20 @@ function Navigation() {
   const [searchParams, setSearchParams] = useSearchParams();
   const searchKeyword = searchParams.get("search") || "";
   const { logout } = useAuth();
+  const { theme, toggleTheme } = useTheme();
 
   const handleSearchChange = (event) => {
-    const keyword = event.target.value;
-    setSearchParams(keyword ? { search: keyword } : {});
+    setSearchParams(event.target.value ? { search: event.target.value } : {});
   };
 
   const isSearchVisible =
     location.pathname === "/catatan" || location.pathname === "/archive";
+
+  const handleLogout = () => {
+    if (window.confirm("Apakah Anda yakin ingin logout?")) {
+      logout();
+    }
+  };
 
   return (
     <div className="navbar-container">
@@ -46,8 +53,15 @@ function Navigation() {
             />
           </div>
         )}
-        <button className="logout-icon" onClick={logout} title="Logout">
-          <FiLogOut size={24} color="#000000" />
+        <button
+          className="theme-toggle"
+          onClick={toggleTheme}
+          title="Ubah Tema"
+        >
+          {theme === "light" ? <FiMoon size={24} /> : <FiSun size={24} />}
+        </button>
+        <button className="logout-icon" onClick={handleLogout} title="Logout">
+          <FiLogOut size={24} />
         </button>
       </nav>
     </div>

@@ -49,6 +49,11 @@
   outline: none;
 }
 
+.home-form input::placeholder,
+.home-form textarea::placeholder {
+  color: var(--background);
+}
+
 .home-form textarea {
   min-height: 120px;
   resize: vertical;

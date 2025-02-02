@@ -1,3 +1,29 @@
+:root {
+  --bg-color: #ffffff;
+  --text-color: #333;
+  --on-background-grey: #f8f9fa;
+  --navbar-bg: #ffffff;
+  --navbar-shadow: rgba(0, 0, 0, 0.4);
+  --border-color: #ccc;
+  --hover-color: #007bff;
+}
+
+[data-theme="dark"] {
+  --bg-color: #121212;
+  --text-color: #ffffff;
+  --on-background-grey: #333;
+  --navbar-bg: #1e1e1e;
+  --navbar-shadow: rgba(255, 255, 255, 0.1);
+  --border-color: #888;
+  --hover-color: #4dabf7;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+
 .navbar-container {
   margin-top: 15px;
   width: 100%;
@@ -10,7 +36,7 @@
   justify-content: space-between;
   align-items: center;
   max-width: fit-content;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 2px 4px var(--navbar-shadow);
   border-radius: 60px;
   background-color: var(--on-background-grey);
   padding: 1rem 2rem;
@@ -19,7 +45,7 @@
 .logo h1 {
   margin: 0 20px 0 0;
   font-size: 24px;
-  color: #333;
+  color: var(--text-color);
 }
 
 .nav-links {
@@ -35,13 +61,13 @@
 
 .nav-links a {
   text-decoration: none;
-  color: #333;
+  color: var(--text-color);
   font-size: 18px;
   transition: color 0.3s;
 }
 
 .nav-links a:hover {
-  color: #007bff;
+  color: var(--hover-color);
 }
 
 .search-container {
@@ -52,16 +78,18 @@
 
 .search-container input {
   padding: 0.5rem;
-  border: 2px solid #ccc;
+  border: 2px solid var(--border-color);
   border-radius: 4px;
   width: 300px;
   margin-left: 20px;
   outline: none;
+  background-color: var(--navbar-bg);
+  color: var(--text-color);
 }
 
 .search-container input:focus {
-  border-color: #ffffff;
-  box-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
+  border-color: var(--hover-color);
+  box-shadow: 0 0 4px var(--hover-color);
 }
 
 .logout-icon {
@@ -78,5 +106,22 @@
 }
 
 .logout-icon:hover {
+  background: rgba(252, 251, 251, 0.4);
+}
+
+.theme-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background 0.3s ease-in-out;
+  margin-left: 20px;
+}
+
+.theme-toggle:hover {
   background: rgba(252, 251, 251, 0.4);
 }
