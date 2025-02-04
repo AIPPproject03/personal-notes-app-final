@@ -1,5 +1,6 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
+// PAGES
 import Home from "./pages/Home";
 import ArchivePage from "./pages/ArchivePage";
 import CatatanPage from "./pages/CatatanPage";
@@ -7,12 +8,13 @@ import DetailPage from "./pages/DetailPage";
 import NotFoundPage from "./pages/404";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
-
+// COMPONENTS
 import Navigation from "./components/Navigation";
 import ProtectedRoute from "./components/ProtectedRoute";
-
+// CONTEXTS
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import { ThemeProvider } from "./context/ThemeContext";
+import { LanguageProvider } from "./context/LanguageContext";
 
 function AppContent() {
   const { user } = useAuth();
@@ -75,7 +77,9 @@ function App() {
   return (
     <AuthProvider>
       <ThemeProvider>
-        <AppContent />
+        <LanguageProvider>
+          <AppContent />
+        </LanguageProvider>
       </ThemeProvider>
     </AuthProvider>
   );
